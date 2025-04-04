@@ -1,0 +1,15 @@
+# CONFIG ENVS
+NAMESPACE="braza-tokens-dashboard"
+MONGO_TIMEOUT="5"
+
+# SERVER ENVS
+SERVER_PORT="8080"
+
+# CLIENT ENVS
+BRAZA_TOKENS_API_SECRET="secret"
+
+# DATABASE (MONGO) ENVS - LOCAL
+KVS_MONGO_URI="mongodb://root:password@localhost:27017"
+KVS_DATABASE="braza-tokens"
+KVS_COLLECTION="keys_values_namespaces"
+MONGO_URI="mongodb://root:password@localhost:27017"

@@ -1,0 +1,39 @@
+package components
+
+import r "crypto-braza-tokens-dashboard/repositories"
+
+templ SelectListNamespaces(variables []*r.ClientNamespace) {
+	<div class="row">
+		<div class="col-sm-5">
+			<select>
+				<option value="none" selected="" disabled="">Selecione um namespace</option>
+				for _, item := range variables {
+					<option value={ item.ID.Hex() }>{ item.Namespace }</option>
+				}
+			</select>
+			<p id="result"></p>
+		</div>
+		<div class="col-sm-1">
+			<button
+				class="btn btn-danger"
+				hx-delete="/settings/kvs/delete"
+				hx-target="#result"
+				hx-confirm="Você tem certeza que deseja deletar este namespace ?"
+				hx-refresh="true"
+			>
+				Delete
+			</button>
+		</div>
+		<div class="col-sm-1">
+			<button
+				class="btn btn-primary"
+				hx-get="/settings/kvs/create"
+				hx-target="#result"
+				hx-swap="innerHTML"
+			>
+				Novo
+			</button>
+		</div>
+		<div class="col-sm-5"></div>
+	</div>
+}

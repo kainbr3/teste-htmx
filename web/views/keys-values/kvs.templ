@@ -1,0 +1,68 @@
+package kvsviews
+
+templ Kvs(namespaces []string) {
+	<html>
+		<head>
+			<title>Keys Values Store</title>
+		</head>
+		<body>
+			<div class="card card-success mt-4">
+				<div class="card-header bg-success text-white w-100" style="position: absolute; left: 0; right: 0;">
+					<h3 class="card-title">Edição de Variáveis do Keys Values Store</h3>
+				</div>
+				<div class="card-body" style="margin-top: 60px;">
+					<form class="form-inline">
+						<div class="row">
+							<div class="form-group align-items-center">
+								<div class="col-sm-12">
+									<div class="row">
+										<div class="col-sm-5">
+											<select
+												class="form-control custom-select"
+												name="selectednamespace"
+												id="select-result"
+												hx-get="/settings/kvs/details"
+												hx-target="#result"
+												hx-trigger="change"
+												hx-swap="innerHTML"
+												hx-vals="{selectednamespace: this.value}"
+											>
+												<option value="none" selected disabled>Selecione um namespace</option>
+												for _, value := range namespaces {
+													<option value={ value }>{ value }</option>
+												}
+											</select>
+											<p id="result"></p>
+										</div>
+										<div class="col-sm-1">
+											<button
+												class="btn btn-danger"
+												hx-delete="/settings/kvs/delete"
+												hx-target="#result"
+												hx-confirm={ "Você tem certeza que deseja deletar este namespace ?" }
+												hx-refresh="true"
+											>
+												Delete
+											</button>
+										</div>
+										<div class="col-sm-1">
+											<button
+												class="btn btn-primary"
+												hx-get="/settings/kvs/create"
+												hx-target="#result"
+												hx-swap="innerHTML"
+											>
+												Novo
+											</button>
+										</div>
+										<div class="col-sm-5"></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</body>
+	</html>
+}
