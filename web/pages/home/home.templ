@@ -1,0 +1,35 @@
+package home
+
+import (
+lyt "crypto-braza-tokens-admin/web/layouts"
+)
+
+templ Home() {
+@lyt.Page("Dashboard") {
+<div class="bgc-white p-20 bd">
+    <h1 class="fw-bold fs-24">Welcome to the Dashboard</h1>
+    <p class="fs-16 c-grey-700">This is the main page of the application where you can monitor and manage your
+        operations.</p>
+    <div class="row gap-20 mT-20">
+        <div class="col-md-4">
+            <div class="bgc-blue-50 p-20 bd">
+                <h3 class="c-blue-500">Statistics</h3>
+                <p>View key metrics and performance indicators.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bgc-green-50 p-20 bd">
+                <h3 class="c-green-500">Settings</h3>
+                <p>Configure your application preferences.</p>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="bgc-orange-50 p-20 bd">
+                <h3 class="c-orange-500">Transactions</h3>
+                <p>Track and manage your financial operations.</p>
+            </div>
+        </div>
+    </div>
+</div>
+}
+}

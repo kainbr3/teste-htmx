@@ -1,0 +1,30 @@
+package components
+
+templ SelectList(id, label, defaultValue, defaultText string, options map[string]string, htmx templ.Attributes) {
+	<div class="mb-3 col-md-12" id={ "container-" + id }>
+		<label class="form-label" for={ id }>{ label }</label>
+		if len(options) == 0 {
+			<select
+				id={ id }
+				name="teste"
+				class="form-control"
+				disabled
+				{ htmx... }
+			>
+				<option value={ defaultValue } selected>{ defaultText }</option>
+			</select>
+		} else {
+			<select
+				id={ id }
+				name="teste"
+				class="form-control"
+				{ htmx... }
+			>
+				<option value={ defaultValue } selected>{ defaultText }</option>
+				for key, value := range options {
+					<option value={ key }>{ value }</option>
+				}
+			</select>
+		}
+	</div>
+}

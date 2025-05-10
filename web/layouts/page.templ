@@ -1,0 +1,12 @@
+package layouts
+
+templ Page(name string) {
+	@Base() {
+		<h6 class="c-grey-900">{ name }</h6>
+		<div class="mT-30">
+			<form id="form-content">
+				{ children... }
+			</form>
+		</div>
+	}
+}

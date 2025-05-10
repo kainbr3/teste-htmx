@@ -1,0 +1,154 @@
+package layouts
+
+templ Base() {
+	<!DOCTYPE html>
+	<html>
+		<head>
+			<meta charset="utf-8"/>
+			<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+			<title>Dashboard</title>
+			<script src="https://unpkg.com/htmx.org/dist/htmx.min.js"></script>
+			<script src="https://unpkg.com/htmx.org/dist/ext/json-enc.js"></script>
+			<!-- isso já ajuda JSON em alguns casos -->
+			<script src="https://unpkg.com/htmx.org/dist/ext/js-vals.js"></script>
+			<!-- 🔥 necessário para usar "js:" -->
+			<script src="/static/js/main.js"></script>
+			<script src="/static/js/htmx.min.js"></script>
+			<script defer="defer" src="/static/js/main.js"></script>
+			<link rel="stylesheet" href="/static/css/style.css"/>
+			<link rel="stylesheet" href="/static/css/custom.css"/>
+		</head>
+		<body class="app">
+			<!-- @Page Loader -->
+			<!-- =================================================== -->
+			<div id="loader">
+				<div class="spinner"></div>
+			</div>
+			<script>
+		window.addEventListener('load', function load() {
+			const loader = document.getElementById('loader');
+			setTimeout(function () {
+				loader.classList.add('fadeOut');
+			}, 300);
+		});
+	</script>
+			<!-- @App Content -->
+			<!-- =================================================== -->
+			<div>
+				<div class="sidebar">
+					<div class="sidebar-inner">
+						<!-- ### $Sidebar Header ### -->
+						<div class="sidebar-logo">
+							<div class="peers ai-c fxw-nw">
+								<div class="peer peer-greed">
+									<a class="sidebar-link td-n" href="/home">
+										<div class="peers ai-c fxw-nw">
+											<div class="peer">
+												<div class="logo">
+													<img
+														src="/static/images/usdb-alt.png"
+														alt=""
+														style="max-height: 40px; width: auto; margin-left: 10px; margin-top: 10px;"
+													/>
+												</div>
+											</div>
+											<div class="peer peer-greed">
+												<h5 class="lh-1 mB-0 logo-text">Braza Tokens</h5>
+											</div>
+										</div>
+										// <div class="peers ai-c fxw-nw">
+										// 	<img src="/static/images/BRAZAcrypto-01.png" alt="braza crypto logo" class="full-logo"/>
+										// </div>
+									</a>
+								</div>
+								<div class="peer">
+									<div class="mobile-toggle sidebar-toggle">
+										<a href="" class="td-n">
+											<i class="ti-arrow-circle-left"></i>
+										</a>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- ### $Sidebar Menu ### -->
+						<ul class="sidebar-menu scrollable pos-r ps">
+							<li class="nav-item mT-30 actived">
+								<a class="sidebar-link" href="/home">
+									<span class="icon-holder">
+										<i class="c-blue-500 ti-home"></i>
+									</span>
+									<span class="title">Dashboard</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="sidebar-link" href="/settings/kvs">
+									<span class="icon-holder">
+										<i class="c-green-500 ti-settings"></i>
+									</span>
+									<span class="title">Keys Values Store</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="sidebar-link" href="/home">
+									<span class="icon-holder">
+										<i class="c-orange-500 ti-briefcase"></i>
+									</span>
+									<span class="title">Operations</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="sidebar-link" href="/home">
+									<span class="icon-holder">
+										<i class="c-purple-500 ti-exchange-vertical"></i>
+									</span>
+									<span class="title">Ramp Transactions</span>
+								</a>
+							</li>
+							<li class="nav-item">
+								<a class="sidebar-link" href="/home">
+									<span class="icon-holder">
+										<i class="c-red-500 ti-wallet"></i>
+									</span>
+									<span class="title">Treasury Management</span>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<!-- #Main ============================ -->
+				<div class="page-container">
+					<!-- ### $Topbar ### -->
+					<div class="header navbar">
+						<div class="header-container">
+							<ul class="nav-left">
+								<li>
+									<a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);">
+										<i class="ti-menu"></i>
+									</a>
+								</li>
+							</ul>
+							<ul class="nav-right">
+								<a
+									href="/logout"
+									class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"
+									style="margin-right: 20px; margin-top: 10px;"
+								>
+									<i class="ti-power-off mR-10"></i>
+									<span>Logout</span>
+								</a>
+							</ul>
+						</div>
+					</div>
+					<!-- ### $App Screen Content ### -->
+					<main class="main-content bgc-grey-100">
+						<div id="mainContent">
+							<div class="container-fluid">
+								{ children... }
+							</div>
+						</div>
+					</main>
+				</div>
+			</div>
+		</body>
+	</html>
+}
