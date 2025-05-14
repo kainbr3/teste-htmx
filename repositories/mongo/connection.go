@@ -38,11 +38,11 @@ func connect() *mongo.Client {
 		ctx, cancel := context.WithTimeout(context.Background(), timeout)
 		defer cancel()
 
-		fmt.Println(ctx)
+		// fmt.Println(ctx)
 
 		var err error
-		// clientInstance, err = mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv(c.MONGO_URI)))
-		clientInstance, err = mongo.Connect(context.Background(), options.Client().ApplyURI(os.Getenv(c.MONGO_URI)))
+		clientInstance, err = mongo.Connect(ctx, options.Client().ApplyURI(os.Getenv(c.MONGO_URI)))
+		//clientInstance, err = mongo.Connect(context.Background(), options.Client().ApplyURI(os.Getenv(c.MONGO_URI)))
 		if err != nil {
 			l.Logger.Fatal(fmt.Sprintf("Failed to connect to MongoDB host %s with error: %v", c.MONGO_URI, err))
 		}
@@ -72,7 +72,7 @@ func setDatabase(dbName string) {
 		ctx, cancel := context.WithTimeout(context.Background(), timeout)
 		defer cancel()
 
-		fmt.Println(ctx)
+		// fmt.Println(ctx)
 
 		if dbName == "" {
 			l.Logger.Fatal("MongoDB database name is not set")
@@ -88,8 +88,8 @@ func setDatabase(dbName string) {
 			l.Logger.Fatal("Failed to set MongoDB database")
 		}
 
-		// if err := Database.Client().Ping(ctx, nil); err != nil {
-		if err := database.Client().Ping(context.Background(), nil); err != nil {
+		if err := database.Client().Ping(ctx, nil); err != nil {
+			// if err := database.Client().Ping(context.Background(), nil); err != nil {
 			l.Logger.Fatal(fmt.Sprintf("Failed to ping MongoDB database %s with error: %v", os.Getenv(c.MONGO_DATABASE), err))
 		}
 

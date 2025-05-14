@@ -1,0 +1,19 @@
+
+package layouts
+
+templ LoginContainer() {
+	@Base() {
+		@Head("Login")
+		@Body() {
+			<div class="login-container">
+				<div class="login-box">
+					<img src="../static/images/logo.svg" alt="Logo" style="width: 200px; margin-bottom: 45px;"/>
+					<button type="submit" hx-get="/sso" hx-trigger="click" hx-target="body" hx-indicator="#loader">
+						<i class="fas fa-sign-in-alt"></i> Login SSO
+					</button>
+					<div id="loader"></div>
+				</div>
+			</div>
+		}
+	}
+}

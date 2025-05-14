@@ -1,0 +1,24 @@
+package layouts
+
+templ Body() {
+	<body class="app" hx-ext="response-targets">
+		<!-- Page Loader -->
+		<div id="loader">
+			<div class="spinner"></div>
+		</div>
+		<script>
+			window.addEventListener('load', function load() {
+				const loader = document.getElementById('loader');
+				setTimeout(function () {
+					loader.classList.add('fadeOut');
+				}, 300);
+			});
+		</script>
+		<!-- End of Page Loader -->
+		<!-- @Body Content -->
+		<div>
+			{ children... }
+		</div>
+		<!-- End of Body Content -->
+	</body>
+}

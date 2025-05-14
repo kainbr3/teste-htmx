@@ -1,0 +1,41 @@
+package layouts
+
+templ PageContainer() {
+	<div class="page-container">
+		<!-- ### $Topbar ### -->
+		<div class="header navbar">
+			<div class="header-container">
+				<ul class="nav-left">
+					<li>
+						<a id="sidebar-toggle" class="sidebar-toggle" href="javascript:void(0);">
+							<i class="ti-menu"></i>
+						</a>
+					</li>
+				</ul>
+				<ul class="nav-right">
+					<a
+						href="/logout"
+						class="d-b td-n pY-5 bgcH-grey-100 c-grey-700"
+						style="margin-right: 20px; margin-top: 10px;"
+					>
+						<i class="ti-power-off mR-10"></i>
+						<span>Logout</span>
+					</a>
+				</ul>
+			</div>
+		</div>
+		<!-- ### $App Screen Content ### -->
+		<main class="main-content bgc-grey-100">
+			<div id="mainContent">
+				<!-- Error handling -->
+				<div id="error-wrapper">
+					<div id="error-notifier"></div>
+				</div>
+				<!-- End of Error handling -->
+				<div class="container-fluid">
+					{ children... }
+				</div>
+			</div>
+		</main>
+	</div>
+}

@@ -6,7 +6,7 @@ templ SelectList(id, label, defaultValue, defaultText string, options map[string
 		if len(options) == 0 {
 			<select
 				id={ id }
-				name="teste"
+				name="selected-option"
 				class="form-control"
 				disabled
 				{ htmx... }
@@ -16,7 +16,7 @@ templ SelectList(id, label, defaultValue, defaultText string, options map[string
 		} else {
 			<select
 				id={ id }
-				name="teste"
+				name="selected-option"
 				class="form-control"
 				{ htmx... }
 			>
