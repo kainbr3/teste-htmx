@@ -21,6 +21,11 @@ func pagesRoutes(app *fiber.App) {
 	pages := app.Group("/pages")
 	pages.Get("/auth/login", ph.AuthPagesHandler{}.LoginPage)
 	pages.Get("/home/index", ph.HomePagesHandler{}.Index)
+	pages.Get("/info/dashboard", ph.InfoPagesHandler{}.Dashboard)
+	pages.Get("/info/treasury-management", ph.InfoPagesHandler{}.TreasuryManagement)
+	pages.Get("/operations/execute", ph.OperationsPagesHandler{}.Execute)
+	pages.Get("/operations/history", ph.OperationsPagesHandler{}.History)
+	pages.Get("/transactions/history", ph.TransactionsPagesHandler{}.History)
 	pages.Get("/settings/kvs", ph.SettingsPagesHandler{}.KvsPage)
 }
 

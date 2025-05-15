@@ -20,7 +20,7 @@ func (h SettingsPagesHandler) KvsPage(ctx *fiber.Ctx) error {
 	namespacesResult, err := repo.Distinct(ctx.UserContext(), bson.M{}, "namespace")
 	if err != nil {
 		l.Logger.Error("Error fetching namespaces", zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	namespaces := make([]string, len(namespacesResult))

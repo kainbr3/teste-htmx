@@ -1,13 +1,12 @@
 package layouts
 
-templ CorePage(title, description string) {
+templ CorePage(title string) {
 	@Base() {
 		@Head(title)
 		@Body() {
 			@Sidebar()
 			@PageContainer() {
-				<h6 class="c-grey-900">{ description }</h6>
-				<div class="mT-30">
+				<div>
 					<form id="form-content">
 						{ children... }
 					</form>

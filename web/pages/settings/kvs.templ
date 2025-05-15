@@ -6,9 +6,10 @@ import (
 )
 
 templ KvsPage(options map[string]string, htmx templ.Attributes) {
-	@lyts.CorePage("Parametrização", "Parametrização da Aplicação") {
+	@lyts.CorePage("Parameterization") {
 		<div class="bgc-white p-20 bd">
-			@cpt.SelectList("namespace-selector", "Aplicação", "0", "Selecione a aplicação", options, htmx)
+			<h6 class="c-grey-900 mB-20">Application Parameterization</h6>
+			@cpt.SelectList("namespace-selector", "Application", "0", "Select an application", options, htmx)
 			<div id="container-variables-table"></div>
 		</div>
 	}

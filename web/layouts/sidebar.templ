@@ -40,27 +40,43 @@ templ Sidebar() {
 						<span class="icon-holder">
 							<i class="c-blue-500 ti-home"></i>
 						</span>
+						<span class="title">Home</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="sidebar-link" href="#" hx-get="/pages/info/dashboard" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
+						<span class="icon-holder">
+							<i class="c-indigo-500 ti-bar-chart"></i>
+						</span>
 						<span class="title">Dashboard</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="sidebar-link" href="#" hx-get="/pages/settings/kvs" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
+					<a class="sidebar-link" href="#" hx-get="/pages/info/treasury-management" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
 						<span class="icon-holder">
-							<i class="c-green-500 ti-settings"></i>
+							<i class="c-red-500 ti-wallet"></i>
 						</span>
-						<span class="title">Keys Values Store</span>
+						<span class="title">Treasury Management</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="sidebar-link" href="#" hx-get="/pages/home/index" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
+					<a class="sidebar-link" href="#" hx-get="/pages/operations/execute" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
 						<span class="icon-holder">
-							<i class="c-orange-500 ti-briefcase"></i>
+							<i class="c-orange-500 ti-money"></i>
 						</span>
-						<span class="title">Operations</span>
+						<span class="title">Operate (Mint/Burn)</span>
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="sidebar-link" href="#" hx-get="/pages/home/index" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
+					<a class="sidebar-link" href="#" hx-get="/pages/operations/history" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
+						<span class="icon-holder">
+							<i class="c-brown-500 ti-layout-list-thumb"></i>
+						</span>
+						<span class="title">Operations History</span>
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="sidebar-link" href="#" hx-get="/pages/transactions/history" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
 						<span class="icon-holder">
 							<i class="c-purple-500 ti-exchange-vertical"></i>
 						</span>
@@ -68,11 +84,11 @@ templ Sidebar() {
 					</a>
 				</li>
 				<li class="nav-item">
-					<a class="sidebar-link" href="#" hx-get="/pages/home/index" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
+					<a class="sidebar-link" href="#" hx-get="/pages/settings/kvs" hx-swap="innerHTML" hx-target=".app" ht-target-4*="#error-wrapper" ht-target-5*="#error-wrapper">
 						<span class="icon-holder">
-							<i class="c-red-500 ti-wallet"></i>
+							<i class="c-green-500 ti-settings"></i>
 						</span>
-						<span class="title">Treasury Management</span>
+						<span class="title">Parameterization</span>
 					</a>
 				</li>
 			</ul>

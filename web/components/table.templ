@@ -5,93 +5,96 @@ import "fmt"
 import m "crypto-braza-tokens-admin/repositories/mongo"
 
 templ Table(id, namespace string, variables []*m.KeyValue) {
-	<input type="hidden" name="namespace" id="namespace" value={ namespace }/>
-	<div class="row col-md-12">
-		<div class="col-md-5">
-			<h4 class="c-grey-900 mB-20">Parametrização de: { namespace }</h4>
-		</div>
-		<div class="col-md-1">
-			<div class="peer">
-				<button
-					type="button"
-					class="btn cur-p btn-outline-primary"
-					hx-get={ fmt.Sprintf("/core/kvs/add?namespace=%s", namespace) }
-					hx-swap="afterbegin"
-					hx-target="#dataTableBody"
-					hx-target-4*="#error-wrapper"
-					hx-target-5*="#error-wrapper"
-				>Adicionar</button>
+	if namespace != "" && len(variables) > 0 {
+		<input type="hidden" name="namespace" id="namespace" value={ namespace }/>
+		<div class="row col-md-12">
+			<div class="mb-2 col-md-12">
+				<h4 class="c-grey-900 mB-20">Parameterization for: { namespace }</h4>
+			</div>
+			<div class="mb-3 col-md-12">
+				<div class="peer">
+					<button
+						type="button"
+						class="btn cur-p btn-outline-primary"
+						hx-get={ fmt.Sprintf("/core/kvs/add?namespace=%s", namespace) }
+						hx-swap="afterbegin"
+						hx-target="#dataTableBody"
+						hx-target-4*="#error-wrapper"
+						hx-target-5*="#error-wrapper"
+					>Add Param</button>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-6"></div>
-	</div>
-	<div id="dataTable_wrapper" class="dataTables_wrapper">
-		<table
-			id="dataTable"
-			class="table table-striped table-bordered dataTable"
-			cellspacing="0"
-			width="100%"
-			role="grid"
-			aria-describedby="dataTable_info"
-			style="width: 100%;"
-		>
-			<thead>
-				<tr role="row">
-					<th
-						class="sorting_asc"
-						tabindex="0"
-						aria-controls="dataTable"
-						rowspan="1"
-						colspan="1"
-						aria-sort="ascending"
-						aria-label="Name: activate to sort column descending"
-						style="width: 186.4px;"
-					>
-						Chave
-					</th>
-					<th
-						class="sorting"
-						tabindex="0"
-						aria-controls="dataTable"
-						rowspan="1"
-						colspan="1"
-						aria-label="Position: activate to sort column ascending"
-						style="width: 284.4px;"
-					>Valor</th>
-					<th
-						class="sorting"
-						tabindex="0"
-						aria-controls="dataTable"
-						rowspan="1"
-						colspan="1"
-						aria-label="Office: activate to sort column ascending"
-						style="width: 136.4px;"
-					>Ações</th>
-				</tr>
-			</thead>
-			<tbody id="dataTableBody">
-				for _, variable := range variables {
-					@TableReadRow(
-						variable.ID.Hex(),
-						variable.Key,
-						variable.Value,
-						templ.Attributes{
-							"hx-get":       fmt.Sprintf(`/core/kvs/edit/%s`, variable.ID.Hex()),
-							"hx-target":    "closest tr",
-							"hx-swap":      "outerHTML",
-							"hx-target-4*": "#error-notifier",
-							"hx-target-5*": "#error-notifier",
-						},
-						templ.Attributes{
-							"hx-delete":    fmt.Sprintf(`/core/kvs/delete/%s`, variable.ID.Hex()),
-							"hx-target":    "closest tr",
-							"hx-swap":      "delete",
-							"hx-target-4*": "#error-notifier",
-							"hx-target-5*": "#error-notifier",
-						},
-					)
-				}
-			</tbody>
-		</table>
-	</div>
+		<div class="col-md-12">
+			<div id="dataTable_wrapper" class="dataTables_wrapper">
+				<table
+					id="dataTable"
+					class="table table-striped table-bordered dataTable"
+					cellspacing="0"
+					width="100%"
+					role="grid"
+					aria-describedby="dataTable_info"
+					style="width: 100%;"
+				>
+					<thead>
+						<tr role="row">
+							<th
+								class="sorting_asc"
+								tabindex="0"
+								aria-controls="dataTable"
+								rowspan="1"
+								colspan="1"
+								aria-sort="ascending"
+								aria-label="Name: activate to sort column descending"
+								style="width: 186.4px;"
+							>
+								Key
+							</th>
+							<th
+								class="sorting"
+								tabindex="0"
+								aria-controls="dataTable"
+								rowspan="1"
+								colspan="1"
+								aria-label="Position: activate to sort column ascending"
+								style="width: 284.4px;"
+							>Value</th>
+							<th
+								class="sorting"
+								tabindex="0"
+								aria-controls="dataTable"
+								rowspan="1"
+								colspan="1"
+								aria-label="Office: activate to sort column ascending"
+								style="width: 136.4px;"
+							>Actions</th>
+						</tr>
+					</thead>
+					<tbody id="dataTableBody">
+						for _, variable := range variables {
+							@TableReadRow(
+								variable.ID.Hex(),
+								variable.Key,
+								variable.Value,
+								templ.Attributes{
+									"hx-get":       fmt.Sprintf(`/core/kvs/edit/%s`, variable.ID.Hex()),
+									"hx-target":    "closest tr",
+									"hx-swap":      "outerHTML",
+									"hx-target-4*": "#error-notifier",
+									"hx-target-5*": "#error-notifier",
+								},
+								templ.Attributes{
+									"hx-delete":    fmt.Sprintf(`/core/kvs/delete/%s`, variable.ID.Hex()),
+									"hx-target":    "closest tr",
+									"hx-swap":      "delete",
+									"hx-target-4*": "#error-notifier",
+									"hx-target-5*": "#error-notifier",
+								},
+							)
+						}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	}
 }

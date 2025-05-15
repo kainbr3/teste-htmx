@@ -26,7 +26,7 @@ func (h CoreHandler) KvsTableRowAdd(ctx *fiber.Ctx) error {
 	namespace := ctx.Query("namespace")
 	if namespace == "" {
 		l.Logger.Error("Error fetching namespace from URL")
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("namespace is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("namespace is required"), false)
 	}
 
 	htmxSave := templ.Attributes{
@@ -39,12 +39,10 @@ func (h CoreHandler) KvsTableRowAdd(ctx *fiber.Ctx) error {
 	}
 
 	htmxCancel := templ.Attributes{
-		"hx-get":       "/core/none",
-		"hx-target":    "closest tr",
-		"hx-swap":      "delete",
-		"hx-trigger":   "click",
-		"hx-target-4*": "#error-notifier",
-		"hx-target-5*": "#error-notifier",
+		"hx-get":     "/core/none",
+		"hx-target":  "closest tr",
+		"hx-swap":    "delete",
+		"hx-trigger": "click",
 	}
 
 	return shrd.Render(ctx, cpt.TableInsertRow(namespace, htmxSave, htmxCancel))
@@ -53,17 +51,17 @@ func (h CoreHandler) KvsTableRowAdd(ctx *fiber.Ctx) error {
 func (h CoreHandler) KvsTableRowAddSave(ctx *fiber.Ctx) error {
 	key := ctx.FormValue("key")
 	if key == "" {
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("key is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("key is required"), false)
 	}
 
 	value := ctx.FormValue("value")
 	if value == "" {
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("value is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("value is required"), false)
 	}
 
 	namespace := ctx.FormValue("namespace")
 	if namespace == "" {
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("namespace is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("namespace is required"), false)
 	}
 
 	repo := mongo.NewMongoRepository[mongo.KeyValue]("keys_values_namespaces")
@@ -80,7 +78,7 @@ func (h CoreHandler) KvsTableRowAddSave(ctx *fiber.Ctx) error {
 	id, err := repo.InsertOne(ctx.Context(), newKeyValue)
 	if err != nil {
 		l.Logger.Error("Error inserting new key-value pair into MongoDB", zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	parsedID := id.(primitive.ObjectID)
@@ -110,13 +108,13 @@ func (h CoreHandler) KvsTableRowEdit(ctx *fiber.Ctx) error {
 	kvsItemId := ctx.Params("variable_id")
 	if kvsItemId == "" {
 		l.Logger.Error("Error fetching variable ID from URL")
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"), false)
 	}
 
 	id, err := primitive.ObjectIDFromHex(kvsItemId)
 	if err != nil {
 		l.Logger.Error("Error converting variable ID to ObjectID"+kvsItemId, zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	repo := repo.NewMongoRepository[repo.KeyValue]("keys_values_namespaces")
@@ -124,7 +122,7 @@ func (h CoreHandler) KvsTableRowEdit(ctx *fiber.Ctx) error {
 	result, err := repo.FindOne(ctx.UserContext(), bson.M{"_id": id})
 	if err != nil {
 		l.Logger.Error("Error fetching variable: "+kvsItemId, zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	htmxUpdate := templ.Attributes{
@@ -153,13 +151,13 @@ func (h CoreHandler) KvsTableRowEditCancel(ctx *fiber.Ctx) error {
 	kvsItemId := ctx.Params("variable_id")
 	if kvsItemId == "" {
 		l.Logger.Error("Error fetching variable ID from URL")
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"), false)
 	}
 
 	id, err := primitive.ObjectIDFromHex(kvsItemId)
 	if err != nil {
 		l.Logger.Error("Error converting variable ID to ObjectID"+kvsItemId, zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	repo := repo.NewMongoRepository[repo.KeyValue]("keys_values_namespaces")
@@ -167,7 +165,7 @@ func (h CoreHandler) KvsTableRowEditCancel(ctx *fiber.Ctx) error {
 	result, err := repo.FindOne(ctx.UserContext(), bson.M{"_id": id})
 	if err != nil {
 		l.Logger.Error("Error fetching variable: "+kvsItemId, zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	htmxEdit := templ.Attributes{
@@ -194,23 +192,23 @@ func (h CoreHandler) KvsTableRowEditCancel(ctx *fiber.Ctx) error {
 func (h CoreHandler) KvsTableRowEditSave(ctx *fiber.Ctx) error {
 	variableID := ctx.Params("variable_id")
 	if variableID == "" {
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"), false)
 	}
 
 	id, err := primitive.ObjectIDFromHex(variableID)
 	if err != nil {
 		l.Logger.Error("Error converting variable ID to ObjectID: "+variableID, zap.Error(err))
-		shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	key := ctx.FormValue("key")
 	if key == "" {
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("Key is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("Key is required"), false)
 	}
 
 	value := ctx.FormValue("value")
 	if value == "" {
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("Value is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("Value is required"), false)
 	}
 
 	repo := mongo.NewMongoRepository[mongo.KeyValue]("keys_values_namespaces")
@@ -218,7 +216,7 @@ func (h CoreHandler) KvsTableRowEditSave(ctx *fiber.Ctx) error {
 	_, err = repo.UpdateOne(ctx.Context(), bson.M{"_id": id}, bson.M{"$set": bson.M{"key": key, "value": value}})
 	if err != nil {
 		l.Logger.Error("Error updating variable in MongoDB", zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, false)
 	}
 
 	htmxEdit := templ.Attributes{
@@ -246,13 +244,13 @@ func (h CoreHandler) KvsTableRowDelete(ctx *fiber.Ctx) error {
 	variableID := ctx.Params("variable_id")
 	if variableID == "" {
 		l.Logger.Error("Error fetching variable ID from URL")
-		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"))
+		return shrd.RenderError(ctx, fiber.StatusBadRequest, fmt.Errorf("variable ID is required"), true)
 	}
 
 	id, err := primitive.ObjectIDFromHex(variableID)
 	if err != nil {
 		l.Logger.Error("Error converting variable ID to ObjectID: "+variableID, zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, true)
 	}
 
 	repo := repo.NewMongoRepository[repo.KeyValue]("keys_values_namespaces")
@@ -260,7 +258,7 @@ func (h CoreHandler) KvsTableRowDelete(ctx *fiber.Ctx) error {
 	err = repo.DeleteOne(ctx.UserContext(), bson.M{"_id": id})
 	if err != nil {
 		l.Logger.Error("Error deleting variable: "+variableID, zap.Error(err))
-		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err)
+		return shrd.RenderError(ctx, fiber.StatusInternalServerError, err, true)
 	}
 
 	return ctx.SendStatus(fiber.StatusOK)

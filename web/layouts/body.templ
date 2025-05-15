@@ -6,6 +6,8 @@ templ Body() {
 		<div id="loader">
 			<div class="spinner"></div>
 		</div>
+		<!-- End of Page Loader -->
+		<!-- @Scripts Content -->
 		<script>
 			window.addEventListener('load', function load() {
 				const loader = document.getElementById('loader');
@@ -14,11 +16,11 @@ templ Body() {
 				}, 300);
 			});
 		</script>
-		<!-- End of Page Loader -->
+		<!-- End of Scripts Content -->
 		<!-- @Body Content -->
 		<div>
 			{ children... }
 		</div>
-		<!-- End of Body Content -->
 	</body>
+	<!-- End of Body Content -->
 }
