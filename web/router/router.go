@@ -1,6 +1,7 @@
 package router
 
 import (
+	btcli "crypto-braza-tokens-admin/clients/braza-tokens"
 	cpt "crypto-braza-tokens-admin/web/handlers/components"
 	ch "crypto-braza-tokens-admin/web/handlers/core"
 	ph "crypto-braza-tokens-admin/web/handlers/pages"
@@ -8,23 +9,23 @@ import (
 	"github.com/gofiber/fiber/v2"
 )
 
-func BuildRoutes(app *fiber.App) {
+func BuildRoutes(app *fiber.App, brazaTokensCli *btcli.BrazaTokensApiClient) {
 	app.Static("/static", "./web/static")
 	app.Get("/", ph.HomePagesHandler{}.Index) // if has session, redirect to /home/index else redirect to /auth/login
 
-	pagesRoutes(app)
+	pagesRoutes(app, brazaTokensCli)
 	componentesRoutes(app)
 	coreRoutes(app)
 }
 
-func pagesRoutes(app *fiber.App) {
+func pagesRoutes(app *fiber.App, brazaTokensCli *btcli.BrazaTokensApiClient) {
 	pages := app.Group("/pages")
 	pages.Get("/auth/login", ph.AuthPagesHandler{}.LoginPage)
 	pages.Get("/home/index", ph.HomePagesHandler{}.Index)
 	pages.Get("/info/dashboard", ph.InfoPagesHandler{}.Dashboard)
 	pages.Get("/info/treasury-management", ph.InfoPagesHandler{}.TreasuryManagement)
-	pages.Get("/operations/execute", ph.OperationsPagesHandler{}.Execute)
-	pages.Get("/operations/history", ph.OperationsPagesHandler{}.History)
+	pages.Get("/operations/execute", ph.OperationsPagesHandler{BtCli: brazaTokensCli}.Execute)
+	pages.Get("/operations/history", ph.OperationsPagesHandler{BtCli: brazaTokensCli}.History)
 	pages.Get("/transactions/history", ph.TransactionsPagesHandler{}.History)
 	pages.Get("/settings/kvs", ph.SettingsPagesHandler{}.KvsPage)
 }

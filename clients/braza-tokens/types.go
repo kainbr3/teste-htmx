@@ -1,4 +1,4 @@
-package brazatokensapi
+package brazatokens
 
 import "time"
 
@@ -91,4 +91,19 @@ type Transaction struct {
 	CallbackURL     string    `json:"callback_url"`
 	CreatedAt       time.Time `json:"created_at"`
 	UpdatedAt       time.Time `json:"updated_at"`
+}
+
+type WalletBalancesResponse struct {
+	Domain              string   `json:"domain"`
+	Name                string   `json:"name"`
+	LocalizedName       string   `json:"localized_name"`
+	Address             string   `json:"address"`
+	AddressTransactions string   `json:"address_transactions"`
+	VaultID             string   `json:"vault_id"`
+	Tokens              []Tokens `json:"tokens"`
+}
+
+type Tokens struct {
+	Abbr    string `json:"abbr"`
+	Balance string `json:"balance"`
 }

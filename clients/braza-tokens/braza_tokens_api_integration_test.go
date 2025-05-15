@@ -1,8 +1,8 @@
-package brazatokensapi_test
+package brazatokens_test
 
 import (
 	"context"
-	brazatokensapi "crypto-braza-tokens-admin/clients/braza-tokens-api"
+	brazatokensapi "crypto-braza-tokens-admin/clients/braza-tokens"
 	kvs "crypto-braza-tokens-admin/utils/keys-values"
 	l "crypto-braza-tokens-admin/utils/logger"
 	"os"

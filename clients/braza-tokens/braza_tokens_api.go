@@ -1,4 +1,4 @@
-package brazatokensapi
+package brazatokens
 
 import (
 	"context"
@@ -130,6 +130,21 @@ func (b *BrazaTokensApiClient) PostOperation(ctx context.Context, clientId, clie
 
 	result := &OperationResponse{}
 	err := r.Execute(ctx, "POST", endpoint, &result, parameters)
+	if err != nil {
+		l.Logger.Error("braza-tokens-api client: error generating token", zap.Error(err))
+		return nil, err
+	}
+
+	return result, nil
+}
+
+func (b *BrazaTokensApiClient) GetWalletBalances(ctx context.Context) (*WalletBalancesResponse, error) {
+	endpoint := fmt.Sprintf("%s/v1/wallets-balances", b.apiUrl)
+
+	parameters := map[string]any{"headers": map[string]string{"trusted-client": b.apiSecret}}
+
+	result := &WalletBalancesResponse{}
+	err := r.Execute(ctx, "GET", endpoint, &result, parameters)
 	if err != nil {
 		l.Logger.Error("braza-tokens-api client: error generating token", zap.Error(err))
 		return nil, err
