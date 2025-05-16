@@ -19,13 +19,13 @@ func RenderError(ctx *fiber.Ctx, statuscode int, err error, fromHxDelete bool) e
 
 	errorHtml := fmt.Sprintf(`
 	<div id="error-notifier">
-		<input type="hidden" id="toastr-auto-close-btn" hx-get="/core/none" hx-swap="innterHTML" hx-target="#error-notifier" hx-swap="delete" hx-trigger="load delay:10s">
+		<input type="hidden" id="toastr-auto-close-btn" hx-get="/core/none" hx-swap="outerHTML" hx-target="#error-notifier" hx-swap="delete" hx-trigger="load delay:10s">
 		<div class="alert alert-danger d-flex justify-content-between align-items-center fade-in" role="alert">
 			<div>
 				<span class="icon-holder"><i class="ti-alert"></i></span>
 				<strong>Error:</strong> %s
 			</div>
-			<span class="close-icon" style="cursor: pointer;" hx-get="/core/none" hx-swap="innterHTML" hx-target="#error-notifier" hx-swap="delete" hx-trigger="click"><i class="ti-close"></i></span>
+			<span class="close-icon" style="cursor: pointer;" hx-get="/core/none" hx-swap="outerHTML" hx-target="#error-notifier" hx-swap="delete" hx-trigger="click"><i class="ti-close"></i></span>
 		</div>
 	</div>
 `, err.Error())

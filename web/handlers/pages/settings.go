@@ -34,9 +34,9 @@ func (h SettingsPagesHandler) KvsPage(ctx *fiber.Ctx) error {
 	}
 
 	htmx := templ.Attributes{
-		"hx-get":       "/components/select-list",
+		"hx-get":       "/components/select-list-kvs",
 		"hx-target":    "#container-variables-table",
-		"hx-swap":      "innterHTML",
+		"hx-swap":      "outerHTML",
 		"hx-trigger":   "change",
 		"hx-target-4*": "#error-wrapper",
 		"hx-target-5*": "#error-wrapper",

@@ -1,15 +1,18 @@
 package operations
 
 import (
-cpt "crypto-braza-tokens-admin/web/components"
-lyts "crypto-braza-tokens-admin/web/layouts"
+	cpt "crypto-braza-tokens-admin/web/components"
+	lyts "crypto-braza-tokens-admin/web/layouts"
 )
 
-templ ExecuteOperation(typesOptions, domainsOptions, blockchainsOptions, tokensOptions map[string]string) {
-	@lyts.CorePage("Operações de Tokens (MINT/BURN)") {
-		@cpt.SelectList("type-selector", "Tipo de Operação", "0", "Selecione a operação...", typesOptions, nil)
-		@cpt.SelectList("domains-selector", "Domínio", "0", "Selecione o domínio...", domainsOptions, nil)
-		@cpt.SelectList("blockchains-selector", "BLockchain", "0", "Selecione a blockchain...", blockchainsOptions, nil)
-		@cpt.SelectList("tokens-selector", "Criptomoeda", "0", "Selecione a criptomoeda...", tokensOptions, nil)
+templ ExecuteOperation(typesOptions, domainsOptions, blockchainsOptions, tokensOptions map[string]string, htmx templ.Attributes) {
+	@lyts.CorePage("Tokens Operations (MINT/BURN)") {
+		<div class="bgc-white p-20 bd">
+			<h6 class="c-grey-900 mB-20">Tokens Operations (MINT/BURN)</h6>
+			@cpt.SelectList("type-selector", "Type", "0", "Select a type...", typesOptions, htmx)
+			@cpt.SelectList("domains-selector", "Domain", "0", "Select a domain...", domainsOptions, nil)
+			@cpt.SelectList("blockchains-selector", "Blockchain", "0", "Select a blockchain...", blockchainsOptions, nil)
+			@cpt.SelectList("tokens-selector", "Token", "0", "Select a token...", tokensOptions, nil)
+		</div>
 	}
 }
